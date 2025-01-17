@@ -9,7 +9,7 @@ const Profile = () => {
     user &&(<div>
       <EditProfile user={user[0]}/>
     </div>)
-  )
+ )
 }
 
 export default Profile

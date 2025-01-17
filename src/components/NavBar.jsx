@@ -3,15 +3,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../Utils/userSlice";
-import {removeFeed} from '../Utils/feedSlice'
+import { removeFeed } from "../Utils/feedSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Utils/constants";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user.items);
 
-  const navigate= useNavigate();
-  const dispatch=useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     dispatch(removeUser());
@@ -33,7 +33,9 @@ const NavBar = () => {
     <div>
       <div className="navbar bg-base-300">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">🔥DevTinder</Link>
+          <Link to="/" className="btn btn-ghost text-xl">
+            🔥DevTinder
+          </Link>
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">
@@ -43,6 +45,20 @@ const NavBar = () => {
               className="input input-bordered w-24 md:w-auto"
             />
           </div>
+
+          <Link to="/premium">
+            <button className="btn btn-outline btn-warning ">Premium</button>
+          </Link>
+          {user[0]?.role ? (
+            <Link to="/admin">
+              <div>
+                <div className=""><button className="btn btn-outline">Admin</button></div>
+              </div>
+            </Link>
+          ) : (
+            <div></div>
+          )}
+
           <div className="dropdown dropdown-end mx-5">
             {user[0]?.firstName && (
               <div className="flex items-center">
