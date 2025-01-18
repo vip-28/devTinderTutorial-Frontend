@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import EditProfile from "./EditProfile"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

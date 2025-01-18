@@ -1,4 +1,3 @@
-import React from 'react'
 import SquishyCard from '../Utils/testing'
 
 export const Premium = () => {

@@ -9,6 +9,7 @@ import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import { Premium } from "./components/Premium";
 import { Admin } from "./components/Admin";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
               <Route path="/user/viewRequest" element={<Requests />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin" element={<Admin/>} />
+              <Route path="/chat/:id" element={<Chat/>}/>
 
             </Route>
           </Routes>

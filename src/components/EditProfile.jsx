@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { BASE_URL } from "../Utils/constants";
@@ -151,5 +152,7 @@ const EditProfile = ({ user }) => {
     </div>
   );
 };
+
+
 
 export default EditProfile;
