@@ -55,7 +55,7 @@ function App() {
               <Route path="/user/viewRequest" element={<Requests />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/admin" element={<Admin/>} />
-              <Route path="/chat/:id" element={<Chat/>}/>
+              <Route path="/chat/:targetUserId" element={<Chat/>}/>
 
             </Route>
           </Routes>
