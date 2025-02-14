@@ -1,42 +1,61 @@
 import axios from "axios";
 import { BASE_URL } from "../Utils/constants";
 import SquishyCard from "../Utils/testing";
+import { useEffect, useState } from "react";
 
 export const Premium = () => {
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  useEffect(() => {
+    verifyPremiumUser();
+  }, []);
+
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+
+    if (res.data.isPremium) {
+      setIsUserPremium(!isUserPremium);
+    }
+  };
+
   const handleBuy = async (type) => {
     const order = await axios.post(
       BASE_URL + "/payment/create",
       {
-        membershipType:type,
+        membershipType: type,
       },
       { withCredentials: true }
     );
 
-const {amount,keyId,currency,notes,orderId}=order.data
+    const { amount, keyId, currency, notes, orderId } = order.data;
 
     const options = {
       key: keyId, // Replace with your Razorpay key_id
       amount,
       currency,
-      name: 'Dev Tinder',
-      description: 'Connect to other Devs',
+      name: "Dev Tinder",
+      description: "Connect to other Devs",
       order_id: orderId, // This is the order_id created in the backend
       prefill: {
-        name: notes.firstName+' + '+notes.lastName,
+        name: notes.firstName + " + " + notes.lastName,
         email: notes.emailId,
-        contact: '9999999999'
+        contact: "9999999999",
       },
       theme: {
-        color: '#F37254'
+        color: "#F37254",
       },
+      handler: verifyPremiumUser,
     };
 
-    // this should open razorpay dialogue 
+    // this should open razorpay dialogue
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
-  return (
+  return isUserPremium ? (
+    <div>Already Premium</div>
+  ) : (
     <div className="grid grid-cols-2 ">
       <div className="flex justify-center mt-14 gap-10  h-[64vh]">
         <div className="divider divider-horizontal "></div>
