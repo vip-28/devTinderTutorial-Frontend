@@ -9,8 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Utils/constants";
 
 const NavBar = () => {
-  const user = useSelector((store) => store.user.items);
-
+  const user = useSelector((store) => store.user.items);  
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

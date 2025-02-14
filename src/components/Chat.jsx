@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../Utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../Utils/constants";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
@@ -12,7 +14,27 @@ const Chat = () => {
   // console.log(user[0]._id);
   const userId = user[0]?._id;
   const firstName = user[0]?.firstName;
+
   //   useMessage();
+
+  const fetchChatMessages = async () => {
+    const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+      withCredentials: true,
+    });
+    console.log(chat?.data?.messages);
+    const chatMessages = chat?.data?.messages.map((msg) => {
+      return {
+        firstName: msg?.senderId?.firstName,
+        lastName: msg?.senderId?.lastName,
+        text: msg?.text,
+      };
+    });
+    setMessage(chatMessages);
+  };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   useEffect(() => {
     if (!userId) {
@@ -21,11 +43,10 @@ const Chat = () => {
     const socket = createSocketConnection();
     socket.emit("joinChat", { firstName, userId, targetUserId });
 
-    socket.on("messageRecieved",({firstName,text})=>{
-        console.log(firstName+" : " +text);
-        setMessage((message)=>[...message,{firstName,text}]);
-    } )
-
+    socket.on("messageRecieved", ({ firstName, text }) => {
+      console.log(firstName + " : " + text);
+      setMessage((message) => [...message, { firstName, text }]);
+    });
 
     return () => {
       socket.disconnect();
@@ -40,12 +61,13 @@ const Chat = () => {
       targetUserId,
       text: newMessage,
     });
+    setNewMessage("");
   };
 
   return (
     <div className="w-1/2 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
       <h1 className="p-5 border-b border-gray-600"> Chat </h1>
-      <div className="flex-1 overflow-scroll p-5 ">
+      <div className="flex-1 overflow-scroll  ">
         {message.map((msg, index) => {
           return (
             <div className="" key={index}>
@@ -58,14 +80,27 @@ const Chat = () => {
                     />
                   </div> */}
                 </div>
-                <div className="chat-header">
-                  {msg.firstName}
-                  <time className="text-xs opacity-50">12:45</time>
+                <div
+                  className={`flex flex-col w-full ${
+                    msg.firstName != firstName
+                      ? "items-start text-left"
+                      : "items-end text-right"
+                  }`}
+                >
+                  <div className="chat-header">
+                    {msg.firstName}
+                    {/* <time className="text-xs opacity-50">12:45 pm</time> */}
+                  </div>
+                <div className={`chat ${msg.firstName!=firstName? "chat-start": "chat-end"}`}>
+                  <div className="chat-bubble bg-neutral-700 rounded-lg">
+                    {msg.text}
+                  </div>
+                  </div>
+                  <div className="chat-footer opacity-50 text-xs">
+                    Delivered
+                  </div>
                 </div>
-                <div className="chat-bubble">{msg.text}</div>
-                <div className="chat-footer opacity-50">Delivered</div>
               </div>
-             
             </div>
           );
         })}

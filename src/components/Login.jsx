@@ -11,7 +11,6 @@ const Login = () => {
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState();
-
   const dispatch = useDispatch();
 
 const [page,setPage]= useState(true);
@@ -55,8 +54,9 @@ const [page,setPage]= useState(true);
     });
     console.log(res.data);
     // dispatch(addUser(res.data)); // adding to store 
-    handleLogin;
+    setPage(!page);
 
+    handleLogin;
     } catch (err) {
       setError(err?.response?.data);
       console.error(err);

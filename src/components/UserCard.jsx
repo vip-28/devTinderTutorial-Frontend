@@ -6,9 +6,11 @@ import { removeUserFromFeed } from "../Utils/feedSlice";
 
 const UserCard = ({ user }) => {
 const dispatch = useDispatch();
+const { _id ,firstName, lastName, age, gender, about, photoUrl } = user;
 
   const handleSendRequest = async (status, userId) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios.post(
         BASE_URL + "/request/send/" + status + "/" + userId,
         {},
@@ -18,9 +20,8 @@ const dispatch = useDispatch();
     } catch (err) {
       console.log(err);
     }
-  };
+  };  
 
-  const { _id ,firstName, lastName, age, gender, about, photoUrl } = user;
   return (
     <div className="card bg-base-300 w-96 shadow-xl justify-center h-[570px]">
       <figure className="px-5 pt-3">
