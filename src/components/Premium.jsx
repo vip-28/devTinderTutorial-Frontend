@@ -57,17 +57,18 @@ export const Premium = () => {
     <div>Already Premium</div>
   ) : (
     <div className="grid grid-cols-2 ">
-      <div className="flex justify-center mt-14 gap-10  h-[64vh]">
+      <div className="flex justify-center mt-14 gap-10  h-[64vh] ">
         <div className="divider divider-horizontal "></div>
 
-        <div className="card card-compact bg-base-100 w-96 shadow-xl">
+        <div className="card card-compact w-96 shadow-xl bg-gray-600 text-black">
           <figure>
+            <div className="w-[30vh]">
             <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              src="https://static.vecteezy.com/system/resources/thumbnails/011/947/155/small_2x/silver-star-icon-free-png.png"
               alt="Shoes"
-            />
+            /></div>
           </figure>
-          <div className="card-body">
+          <div className="card-body ">
             <h2 className="card-title">Silver Membership</h2>
             <p className="grid grid-flow-row gap-2 ">
               <div>- Chat with other people </div>
@@ -92,12 +93,13 @@ export const Premium = () => {
       <div className="flex justify-center mt-14 gap-10  h-[64vh]">
         <div className="divider divider-horizontal "></div>
 
-        <div className="card card-compact bg-base-100 w-96 shadow-xl">
+        <div className="card card-compact w-96 shadow-xl bg-yellow-200 text-black">
           <figure>
+            <div className="w-[36vh]">
             <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              src="https://png.pngtree.com/png-vector/20230104/ourmid/pngtree-golden-star-clipart-in-transparent-background-png-image_6550460.png"
               alt="Shoes"
-            />
+            /></div>
           </figure>
           <div className="card-body">
             <h2 className="card-title">Gold Membership</h2>
